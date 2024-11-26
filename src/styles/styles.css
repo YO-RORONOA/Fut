@@ -1,0 +1,194 @@
+.body
+{
+    padding: 0%;
+    margin: 0%;
+}
+
+.main-background
+{
+    z-index: -1;
+    object-fit: cover;
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background-image: url('../assets/images/soccer\ field\ dark\ overlay\ and\ dark\ opaque\ shadow\ bottom\ gradient__.jpeg'); 
+    background-size: cover; 
+    background-position: center; 
+}
+.main-container
+{
+    display: flex;
+    height: 100vh;
+}
+
+.background-imagee
+{
+    flex: 3;
+    position: relative;
+
+}
+.img-div
+{
+    display: inline-block;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    position: absolute;
+    width: 100%;
+    border: 2px solid red; 
+    top: 55px;
+    left: 20px;
+    
+}
+
+.field-image
+{
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    /* top: 50px; */
+    /* left: 100px; */
+    box-shadow: 0 4px 9px rgba(0, 0, 0, 0.5);
+    border-radius: 15px;
+}
+
+.dark-overlay 
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 1;
+}
+
+.main-panel
+{
+    width: 100vw;
+    height: 100vh;
+    flex: 2;
+    padding-left: 20px;
+    position: relative;
+}
+
+
+.panel-div
+{
+    padding-top: 15px;
+    height: 400px;
+    width: 350px;
+    padding-left: 20px;
+    background-color: #2C2F36;
+    color: #E4E6EB; 
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    position: absolute;
+    left: 100px;
+    top: 100px;
+}
+
+.main-panel h2 {
+    font-family: 'Arial', sans-serif;
+    color: #F2F2F2;
+    font-size: 24px;
+    margin-bottom: 10px;
+    border-bottom: 2px solid #F2F2F2;
+    padding-bottom: 5px;
+}
+
+.main-panel select {
+    width: 90%;
+    padding: 12px;
+    margin: 10px 0;
+    background-color: #3D4349; 
+    color: #F2F2F2; 
+    border: 1px solid #565C64; 
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.main-panel select:hover {
+    border-color: #A4B0B9;
+}
+
+
+
+
+.control, .tiki, .wing, .route, .counter, .balanced
+{
+    display: none;
+    font-family: 'Arial', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    color: #D1D5DB; 
+
+}
+
+.add-div
+{
+    position: relative;
+    text-align: left; 
+}
+
+.add-button
+{
+    
+    height: auto;
+    width: 45px;
+    position: relative;
+    display: block;
+    margin: 0 auto;
+}
+
+.add-button:hover {
+    cursor: pointer;
+    filter: brightness(1.3); 
+}
+
+
+.add-button
+{
+    display: flex;
+    justify-content: center;
+}
+
+
+.field-positions {
+    width: 30%;
+    height: 90%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 columns for layout */
+    grid-template-rows: repeat(3, 1fr);  /* 3 rows for layout */
+    gap: 20px;
+}
+
+.placeholder {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 70px;
+    height: 150px;
+}
+.card-image {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.add-player-btn {
+    position: absolute;
+    bottom: -10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s ease-in-out;
+}
