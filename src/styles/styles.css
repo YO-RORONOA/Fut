@@ -1,4 +1,8 @@
-.body
+* {
+    box-sizing: border-box;
+}
+
+body
 {
     padding: 0%;
     margin: 0%;
@@ -9,7 +13,7 @@
     z-index: -1;
     object-fit: cover;
     position: absolute;
-    width: 100vw;
+    width: 99vw;
     height: 100vh;
     background-image: url('../assets/images/soccer\ field\ dark\ overlay\ and\ dark\ opaque\ shadow\ bottom\ gradient__.jpeg'); 
     background-size: cover; 
@@ -76,7 +80,7 @@
 .panel-div
 {
     padding-top: 15px;
-    height: 400px;
+    height: 510px;
     width: 350px;
     padding-left: 20px;
     background-color: #2C2F36;
@@ -85,7 +89,7 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     position: absolute;
     left: 100px;
-    top: 100px;
+    top: 70px;
 }
 
 .main-panel h2 {
@@ -131,6 +135,11 @@
     position: relative;
     text-align: left; 
 }
+.display-button
+{
+    display: flex;
+    margin: 0 auto;
+}
 
 .add-button
 {
@@ -152,6 +161,30 @@
 {
     display: flex;
     justify-content: center;
+}
+
+.display-button 
+{
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.display-button:hover 
+{
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+.display-button:focus 
+{
+    outline: none;
+    box-shadow: 0 0 0 2px #0056b3;
 }
 
 
@@ -232,6 +265,19 @@
 }
 
 
+.substitutes-panel
+{
+    display: inline-block;
+    color: #333;
+    width: 99vw;
+    padding-left: 20px;
+    color: #E4E6EB; 
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+     background-image: url('../assets/images/soccer\ field\ dark\ overlay\ and\ dark\ opaque\ shadow\ bottom\ gradient__.jpeg'); 
+     background-size: cover;
+     background-position: center; 
+     background-repeat: no-repeat;
+}
 
 .substitutes-main
 {
@@ -239,12 +285,13 @@
     flex-wrap: wrap;
     justify-content: space-between;
     width: 100%;
-    padding-left: 20px;
-    background-color: #2C2F36;
-    color: #E4E6EB; 
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
+
+.substitutes-panel h3 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+
+  }
 
 .card
 {
@@ -260,7 +307,7 @@
 {
     position: absolute;
     bottom: 40px;
-    right: 40%;
+    right: 37%;
     background-color: #007bff;
     color: white;
     border: none;
@@ -271,4 +318,44 @@
     cursor: pointer;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
     transition: transform 0.2s ease-in-out;
+}
+
+
+
+
+/* Modal container styling */
+.modal {
+    position: fixed;
+    top: 10%;
+    left: 10%;
+    width: 700px;
+    height: 100px;
+    background: rgba(0, 0, 0, 0.7);
+    /* display: none; */
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+
+/* Modal content styling */
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    width: 80%;
+    max-width: 900px;
+    overflow-y: auto;
+}
+
+/* Close button styling */
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 30px;
+    color: #000;
+    cursor: pointer;
+}
+
+.close-btn:hover {
+    color: red;
 }
