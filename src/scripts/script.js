@@ -76,12 +76,59 @@ function categorizeplayers() {
 
         for (let i = 0; i < players.length; i++) {
             const player = players[i];
-        
-            // Create a div element for the player card
             const renderdiv = document.createElement('div');
             renderdiv.classList.add('placeholder');
-        
-            // Populate the card with player data using template literals
+
+            if (player.position === "GK") {
+                renderdiv.innerHTML = `
+                <div class="player-container">
+                    <img src="src/assets/images/badge_gold.webp" alt="Empty Card" class="card-image">
+                    <div class="player-photo">
+                        <img src="${player.photo}" alt="${player.name}">
+                    <div class="rating">
+                        <h4 class="rating-number">${player.rating}</h4>
+                        <p class="position">${player.position}</p>
+                    </div>
+                    </div>
+                    <h5 class="player-name">${player.name}</h5>
+                    <div class="player-stats">  
+                        <div class="player-stats-collumns">
+                            <p>div</p>
+                            <p>${player.diving}</p>
+                        </div>
+                        <div class="player-stats-collumns">
+                            <p>Han</p>
+                            <p>${player.handling}</p>
+                        </div>
+                        <div class="player-stats-collumns">
+                            <p>Kic</p>
+                            <p>${player.kicking}</p>
+                        </div>
+                        <div class="player-stats-collumns">
+                            <p>Ref</p>
+                            <p>${player.reflexes}</p>
+                        </div>
+                        <div class="player-stats-collumns">
+                            <p>Spd</p>
+                            <p>${player.speed}</p>
+                        </div>
+                        <div class="player-stats-collumns">
+                            <p>Pos</p>
+                            <p>${player.positioning}</p>
+                        </div>
+                    </div>
+                         <div class="icons">
+                    <img src="${player.flag}" alt="${player.nationality} Flag" class="flag-icon">
+                    <img src="${player.logo}" alt="${player.club} Logo" class="club-logo">
+                        </div>
+                        <button class="modal-player-btn">+</button>
+                </div>
+                
+            `;
+            }
+            else
+            {
+            
             renderdiv.innerHTML = `
                 <div class="player-container">
                     <img src="src/assets/images/badge_gold.webp" alt="Empty Card" class="card-image">
@@ -123,11 +170,13 @@ function categorizeplayers() {
                     <img src="${player.flag}" alt="${player.nationality} Flag" class="flag-icon">
                     <img src="${player.logo}" alt="${player.club} Logo" class="club-logo">
                         </div>
+                    <button class="modal-player-btn">+</button>
+                    
                 </div>
                 
             `;
-        
-            // Append the created card to the cards container
+        }
+
             cardscontainer.appendChild(renderdiv);
         }
         
