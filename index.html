@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="src/styles/styles.css">
+    
 </head>
 <body>
 
@@ -198,12 +199,21 @@
         </div>
     </div>
 
-    <div id="player-selection-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn">&times;</span>
-            <div id="player-list-container" class="player-list-container"></div>
+     <!-- Modal structure -->
+  <div id="playerModal" class="modal">
+    <div class="modal-content">
+      <span class="close-modal">&times;</span>
+      <h2>Football Players</h2>
+      <div class="cards-container">
+        <!-- Player cards will be injected here dynamically -->
+        <div class="placeholder" data-position="11">
+            <img src="src/assets/images/badge_gold.webp" alt="Empty Card" class="card-image">
+            <button class="add-player-btn">+</button>
+        </div>
+      </div>
     </div>
-  
+  </div>
+
   <script src="src/scripts/script.js"></script>
 </body>
 </html>
