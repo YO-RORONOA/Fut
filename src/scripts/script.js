@@ -57,6 +57,11 @@ function categorizeplayers() {
 
         displaymodal.addEventListener('click', function()
         {
+            // get span trext
+            // let value = 'LM'
+
+            // renderFilteredPlayers(value);
+
             modal.style.display = 'block';
         })
     }
@@ -64,124 +69,97 @@ function categorizeplayers() {
     displaymodal();
 
 
-    function renderplayersmodal()
-    {
-        let storedData = JSON.parse(localStorage.getItem("datastorage"));
-        let players = storedData.players;
-        const modal = document.querySelector('.modal');
-        const cardscontainer = document.querySelector('.cards-container');
-
-
-        cardscontainer.innerHTML = '';
-
-        for (let i = 0; i < players.length; i++) {
-            const player = players[i];
-            const renderdiv = document.createElement('div');
-            renderdiv.classList.add('placeholder');
-
-            if (player.position === "GK") {
-                renderdiv.innerHTML = `
-                <div class="player-container">
-                    <img src="src/assets/images/badge_gold.webp" alt="Empty Card" class="card-image">
-                    <div class="player-photo">
-                        <img src="${player.photo}" alt="${player.name}">
-                    <div class="rating">
-                        <h4 class="rating-number">${player.rating}</h4>
-                        <p class="position">${player.position}</p>
-                    </div>
-                    </div>
-                    <h5 class="player-name">${player.name}</h5>
-                    <div class="player-stats">  
-                        <div class="player-stats-collumns">
-                            <p>div</p>
-                            <p>${player.diving}</p>
+    function renderPlayersModal() {
+        const storedData = JSON.parse(localStorage.getItem("datastorage"));
+        const players = storedData.players;
+        const cardsContainer = document.querySelector('.cards-container');
+        const positionFilter = document.getElementById('positionFilter');
+    
+        function renderFilteredPlayers(position) {
+            cardsContainer.innerHTML = ''; 
+    
+            const filteredPlayers = position === 'all' ? players : players.filter(player => player.position === position);
+    
+            filteredPlayers.forEach(player => {
+                const renderDiv = document.createElement('div');
+                renderDiv.classList.add('placeholder');
+    
+                if (player.position === 'GK') {
+                    renderDiv.innerHTML = `
+                    <div class="player-container">
+                        <img src="src/assets/images/badge_gold.webp" alt="Empty Card" class="card-image">
+                        <div class="player-photo">
+                            <img src="${player.photo}" alt="${player.name}">
+                            <div class="rating">
+                                <h4 class="rating-number">${player.rating}</h4>
+                                <p class="position">${player.position}</p>
+                            </div>
                         </div>
-                        <div class="player-stats-collumns">
-                            <p>Han</p>
-                            <p>${player.handling}</p>
+                        <h5 class="player-name">${player.name}</h5>
+                        <div class="player-stats">
+                            <div class="player-stats-collumns"><p>Div</p><p>${player.diving}</p></div>
+                            <div class="player-stats-collumns"><p>Han</p><p>${player.handling}</p></div>
+                            <div class="player-stats-collumns"><p>Kic</p><p>${player.kicking}</p></div>
+                            <div class="player-stats-collumns"><p>Ref</p><p>${player.reflexes}</p></div>
+                            <div class="player-stats-collumns"><p>Spd</p><p>${player.speed}</p></div>
+                            <div class="player-stats-collumns"><p>Pos</p><p>${player.positioning}</p></div>
                         </div>
-                        <div class="player-stats-collumns">
-                            <p>Kic</p>
-                            <p>${player.kicking}</p>
-                        </div>
-                        <div class="player-stats-collumns">
-                            <p>Ref</p>
-                            <p>${player.reflexes}</p>
-                        </div>
-                        <div class="player-stats-collumns">
-                            <p>Spd</p>
-                            <p>${player.speed}</p>
-                        </div>
-                        <div class="player-stats-collumns">
-                            <p>Pos</p>
-                            <p>${player.positioning}</p>
-                        </div>
-                    </div>
-                         <div class="icons">
-                    <img src="${player.flag}" alt="${player.nationality} Flag" class="flag-icon">
-                    <img src="${player.logo}" alt="${player.club} Logo" class="club-logo">
+                        <div class="icons">
+                            <img src="${player.flag}" alt="${player.nationality} Flag" class="flag-icon">
+                            <img src="${player.logo}" alt="${player.club} Logo" class="club-logo">
                         </div>
                         <button class="modal-player-btn">+</button>
-                </div>
-                
-            `;
-            }
-            else
-            {
-            
-            renderdiv.innerHTML = `
-                <div class="player-container">
-                    <img src="src/assets/images/badge_gold.webp" alt="Empty Card" class="card-image">
-                    <div class="player-photo">
-                        <img src="${player.photo}" alt="${player.name}">
-                    <div class="rating">
-                        <h4 class="rating-number">${player.rating}</h4>
-                        <p class="position">${player.position}</p>
-                    </div>
-                    </div>
-                    <h5 class="player-name">${player.name}</h5>
-                    <div class="player-stats">  
-                        <div class="player-stats-collumns">
-                            <p>Pac</p>
-                            <p>${player.pace}</p>
+                    </div>`;
+                } else {
+                    renderDiv.innerHTML = `
+                    <div class="player-container">
+                        <img src="src/assets/images/badge_gold.webp" alt="Empty Card" class="card-image">
+                        <div class="player-photo">
+                            <img src="${player.photo}" alt="${player.name}">
+                            <div class="rating">
+                                <h4 class="rating-number">${player.rating}</h4>
+                                <p class="position">${player.position}</p>
+                            </div>
                         </div>
-                        <div class="player-stats-collumns">
-                            <p>Sho</p>
-                            <p>${player.shooting}</p>
+                        <h5 class="player-name">${player.name}</h5>
+                        <div class="player-stats">
+                            <div class="player-stats-collumns"><p>Pac</p><p>${player.pace}</p></div>
+                            <div class="player-stats-collumns"><p>Sho</p><p>${player.shooting}</p></div>
+                            <div class="player-stats-collumns"><p>Pas</p><p>${player.passing}</p></div>
+                            <div class="player-stats-collumns"><p>Dri</p><p>${player.dribbling}</p></div>
+                            <div class="player-stats-collumns"><p>Def</p><p>${player.defending}</p></div>
+                            <div class="player-stats-collumns"><p>Phy</p><p>${player.physical}</p></div>
                         </div>
-                        <div class="player-stats-collumns">
-                            <p>Pas</p>
-                            <p>${player.passing}</p>
+                        <div class="icons">
+                            <img src="${player.flag}" alt="${player.nationality} Flag" class="flag-icon">
+                            <img src="${player.logo}" alt="${player.club} Logo" class="club-logo">
                         </div>
-                        <div class="player-stats-collumns">
-                            <p>Dri</p>
-                            <p>${player.dribbling}</p>
-                        </div>
-                        <div class="player-stats-collumns">
-                            <p>Def</p>
-                            <p>${player.defending}</p>
-                        </div>
-                        <div class="player-stats-collumns">
-                            <p>Phy</p>
-                            <p>${player.physical}</p>
-                        </div>
-                    </div>
-                         <div class="icons">
-                    <img src="${player.flag}" alt="${player.nationality} Flag" class="flag-icon">
-                    <img src="${player.logo}" alt="${player.club} Logo" class="club-logo">
-                        </div>
-                    <button class="modal-player-btn">+</button>
-                    
-                </div>
-                
-            `;
+                        <button class="modal-player-btn">+</button>
+                    </div>`;
+                }
+    
+                cardsContainer.appendChild(renderDiv);
+            });
         }
-
-            cardscontainer.appendChild(renderdiv);
-        }
-        
-        
+        renderFilteredPlayers('all');
+    
+        positionFilter.addEventListener('change', () => {
+            const selectedPosition = positionFilter.value;
+            renderFilteredPlayers(selectedPosition);
+        });
     }
-    renderplayersmodal()
+    
+    renderPlayersModal();
+
+    
+
+
+
+
+
+
+
 
 });
+
+

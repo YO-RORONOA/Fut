@@ -141,6 +141,7 @@
                         <div class="display-players">
                             <h2>Show all available players</h2>
                             <button class="display-button">Display</button>
+                            <span>LW</span>
                         </div>
             </div>
 
@@ -204,6 +205,21 @@
     <div class="modal-content">
       <span class="close-modal">&times;</span>
       <h2>Football Players</h2>
+      <div class="filter-container">
+        <label for="positionFilter">Filter by Position:</label>
+        <select id="positionFilter" class="filter-dropdown">
+            <option value="all">All Positions</option>
+            <option value="ST">ST</option>
+            <option value="RW">RW</option>
+            <option value="LW">LW</option>
+            <option value="CM">CM</option>
+            <option value="CB">CB</option>
+            <option value="GK">GK</option>
+            <option value="CDM">CDM</option>
+            <option value="LB">LB</option>
+            <option value="RB">RB</option>
+        </select>
+    </div>
       <div class="cards-container">
         <!-- Player cards will be injected here dynamically -->
         <div class="placeholder" data-position="11">
