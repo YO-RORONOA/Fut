@@ -200,6 +200,7 @@ body
 
 .attack
 {
+    /* height: 110px; */
     padding-left: 140px;
     display: grid;
     grid-template-columns: repeat(3, 1fr)
@@ -207,6 +208,7 @@ body
 
 .mid
 {
+    height: 120px;
     padding-left: 110px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -251,7 +253,7 @@ body
 
 .add-player-btn {
     position: absolute;
-    bottom: -10px;
+    bottom: -15px;
     background-color: #007bff;
     color: white;
     border: none;
@@ -264,6 +266,16 @@ body
     transition: transform 0.2s ease-in-out;
 }
 
+.player-position
+{
+    position: absolute;
+    bottom: 20px;
+    z-index: 2;
+    font-weight: bold;
+    font-family: 'Arial', sans-serif;
+    color: rgb(241, 215, 163);
+    font-size: 15px;
+}
 
 .substitutes-panel
 {
@@ -325,7 +337,7 @@ body
 
 /* modal styling */
 .modal {
-    /* display: none; */
+    display: none;
     position: fixed;
     top: 0;
     left: 0;
