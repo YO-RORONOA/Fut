@@ -19,7 +19,7 @@
                 <div class="field-positions">
                     <div class="attack">
                         <!-- Placeholder 1 -->
-                        <div class="placeholder" data-position="1">
+                        <div class="placeholder" data-position="1" >
                             <img src="src/assets/images/badge_gold.webp" alt="Empty Card" class="card-image">
                             <button class="lw add-player-btn">+</button>
                             <span class="player-position">Lw</span>
@@ -247,6 +247,94 @@
       </div>
     </div>
   </div>
+
+
+  <!-- Add Player Form -->
+<div class="add-player-form">
+    <div class="form-content">
+    <h2>Add New Player</h2>
+    <form id="playerForm">
+        <label for="name">Player Name:</label>
+        <input type="text" id="name" required>
+
+        <label for="position">Position:</label>
+        <select id="position" required>
+            <option value="ST">Striker</option>
+            <option value="RW">Right Wing</option>
+            <option value="LW">Left Wing</option>
+            <option value="CM">Center Mid</option>
+            <option value="CDM">Central Defensive Mid</option>
+            <option value="CB">Center Back</option>
+            <option value="GK">Goalkeeper</option>
+            <option value="LB">Left Back</option>
+            <option value="RB">Right Back</option>
+        </select>
+
+        <label for="nationality">Nationality:</label>
+        <input type="text" id="nationality" required>
+
+        <label for="club">Club URL:</label>
+        <input type="url" id="club" required>
+
+        <label for="rating">Rating:</label>
+        <input type="number" id="rating" min="1" max="100" required>
+
+        <label for="photo">Photo URL:</label>
+        <input type="url" id="photo" required>
+
+        <label for="logo">Logo URL:</label>
+        <input type="url" id="logo" required>
+
+        <label for="flag">Flag URL:</label>
+        <input type="url" id="flag" required>
+
+        <!-- Outfield player stats (hidden initially) -->
+        <div id="outfieldStats" class="player-statsM">
+            <label for="pace">Pace:</label>
+            <input type="number" id="pace" min="0" max="99">
+            
+            <label for="shooting">Shooting:</label>
+            <input type="number" id="shooting" min="0" max="99">
+            
+            <label for="passing">Passing:</label>
+            <input type="number" id="passing" min="0" max="99">
+            
+            <label for="dribbling">Dribbling:</label>
+            <input type="number" id="dribbling" min="0" max="99">
+            
+            <label for="defending">Defending:</label>
+            <input type="number" id="defending" min="0" max="99">
+            
+            <label for="physical">Physical:</label>
+            <input type="number" id="physical" min="0" max="99">
+        </div>
+
+        <!-- Goalkeeper stats (hidden initially) -->
+        <div id="gkStats" class="player-statsm">
+            <label for="diving">Diving:</label>
+            <input type="number" id="diving" min="0" max="99">
+
+            <label for="handling">Handling:</label>
+            <input type="number" id="handling" min="0" max="99">
+
+            <label for="kicking">Kicking:</label>
+            <input type="number" id="kicking" min="0" max="99">
+
+            <label for="reflexes">Reflexes:</label>
+            <input type="number" id="reflexes" min="0" max="99">
+
+            <label for="speed">Speed:</label>
+            <input type="number" id="speed" min="0" max="99">
+
+            <label for="positioning">Positioning:</label>
+            <input type="number" id="positioning" min="0" max="99">
+        </div>
+
+        <button type="submit">Add Player</button>
+    </form>
+</div>
+</div>
+
 
   <script src="src/scripts/script.js"></script>
 </body>

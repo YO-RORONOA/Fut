@@ -1,4 +1,92 @@
 document.addEventListener('DOMContentLoaded', function () {
+    // The image button and form elements
+    const addButton = document.querySelector('.add-button');
+    const addPlayerForm = document.querySelector('.add-player-form');
+    const closeModalBtn = document.querySelector('.close-modal');
+    const playerForm = document.getElementById('playerForm');
+
+    // Initially hide the form
+    addPlayerForm.style.display = 'none';
+
+    // Event listener for the Add Player image button to show the form
+    addButton.addEventListener('click', function () {
+        addPlayerForm.style.display = 'block';
+    });
+
+    // Event listener for Close button in the form to hide the form
+    closeModalBtn.addEventListener('click', function () {
+        addPlayerForm.style.display = 'none';
+    });
+
+    // Dynamic stats display based on position
+    document.getElementById('position').addEventListener('change', function () {
+        const selectedPosition = this.value;
+        const outfieldStats = document.getElementById('outfieldStats');
+        const gkStats = document.getElementById('gkStats');
+
+        if (selectedPosition === 'GK') {
+            outfieldStats.style.display = 'none';
+            gkStats.style.display = 'block';
+        } else {
+            outfieldStats.style.display = 'block';
+            gkStats.style.display = 'none';
+        }
+    });
+
+    // Handle form submission
+    playerForm.addEventListener('submit', function (event) {
+        event.preventDefault();
+        
+        // Get existing data
+        let storedData = JSON.parse(localStorage.getItem('datastorage')) || { players: [] };
+        
+        // Create new player object with all the form data
+        const newPlayer = {
+            name: document.getElementById('name').value,
+            position: document.getElementById('position').value,
+            nationality: document.getElementById('nationality').value,
+            club: document.getElementById('club').value,
+            logo: document.getElementById('logo').value,
+            flag: document.getElementById('flag').value,
+            rating: document.getElementById('rating').value,
+            photo: document.getElementById('photo').value,
+        };
+
+        // Add position-specific stats
+        if (newPlayer.position === 'GK') {
+            Object.assign(newPlayer, {
+                diving: document.getElementById('diving').value,
+                handling: document.getElementById('handling').value,
+                kicking: document.getElementById('kicking').value,
+                reflexes: document.getElementById('reflexes').value,
+                speed: document.getElementById('speed').value,
+                positioning: document.getElementById('positioning').value
+            });
+        } else {
+            Object.assign(newPlayer, {
+                pace: document.getElementById('pace').value,
+                shooting: document.getElementById('shooting').value,
+                passing: document.getElementById('passing').value,
+                dribbling: document.getElementById('dribbling').value,
+                defending: document.getElementById('defending').value,
+                physical: document.getElementById('physical').value
+            });
+        }
+
+        // Add to players array
+        storedData.players.push(newPlayer);
+        
+        // Save back to localStorage
+        localStorage.setItem('datastorage', JSON.stringify(storedData));
+        
+        // Reset form and hide it
+        playerForm.reset();
+        addPlayerForm.style.display = 'none';
+        
+        // Re-render the players
+        renderPlayersModal();
+    });
+
     let data = [];
 
     async function fetchPlayers() {
@@ -17,15 +105,8 @@ document.addEventListener('DOMContentLoaded', function () {
     function categorizePlayers() {
         const storedData = JSON.parse(localStorage.getItem("datastorage"));
         const categorizedPlayers = {
-            ST: [],
-            RW: [],
-            LW: [],
-            CM: [],
-            CB: [],
-            GK: [],
-            CDM: [],
-            LB: [],
-            RB: []
+            ST: [], RW: [], LW: [], CM: [], CB: [], 
+            GK: [], CDM: [], LB: [], RB: []
         };
 
         for (let i = 0; i < storedData.players.length; i++) {
@@ -37,7 +118,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
         localStorage.setItem("categorizedPlayers", JSON.stringify(categorizedPlayers));
     }
-
 
     function displayModal() {
         const closeModal = document.querySelector('.close-modal');
@@ -53,27 +133,16 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    displayModal();
-
     function filterPlayers(players, position) {
         if (position === 'all') return players;
-
-        const filteredPlayers = [];
-        for (let i = 0; i < players.length; i++) {
-            if (players[i].position === position) {
-                filteredPlayers.push(players[i]);
-            }
-        }
-        return filteredPlayers;
+        return players.filter(player => player.position === position);
     }
 
-    // Render 
     function renderPlayers(players) {
         const cardsContainer = document.querySelector('.cards-container');
         cardsContainer.innerHTML = '';
 
-        for (let i = 0; i < players.length; i++) {
-            const player = players[i];
+        players.forEach(player => {
             const renderDiv = document.createElement('div');
             renderDiv.classList.add('placeholder');
 
@@ -132,28 +201,22 @@ document.addEventListener('DOMContentLoaded', function () {
             }
 
             cardsContainer.appendChild(renderDiv);
-        }
+        });
     }
 
-    // Modal setup and filtering
     function renderPlayersModal() {
         const storedData = JSON.parse(localStorage.getItem("datastorage"));
         const players = storedData.players;
         const positionFilter = document.getElementById('positionFilter');
 
-        // Render all players
         renderPlayers(players);
 
-        // listner filter change
         positionFilter.addEventListener('change', () => {
             const selectedPosition = positionFilter.value;
             const filteredPlayers = filterPlayers(players, selectedPosition);
             renderPlayers(filteredPlayers);
         });
     }
-
-    renderPlayersModal();
-
 
     function setupPositionButtons() {
         const positionButtons = document.querySelectorAll('.add-player-btn');
@@ -170,7 +233,6 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         });
 
-        // Close modal logic
         const closeModal = document.querySelector('.close-modal');
         closeModal.addEventListener('click', function () {
             modal.style.display = 'none';
@@ -178,22 +240,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // Initialize functionality
+    displayModal();
     setupPositionButtons();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    renderPlayersModal();
 });
-
-
-
