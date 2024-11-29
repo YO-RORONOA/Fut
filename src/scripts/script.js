@@ -1,9 +1,11 @@
 import { rendrPlayerHtml } from "./rendrPlayerHtml.js";
+import { dragdrop } from "./dragdrop.js";
+
 
 
 document.addEventListener('DOMContentLoaded', function () {
 
-    // let data = [];
+    let data = [];
 
     async function fetchPlayers() {
         try {
@@ -218,10 +220,12 @@ document.addEventListener('DOMContentLoaded', function () {
     // **********************************DRAG&drop**************************************
 
 
-
+    
     function setupFieldPlaceholders() {
         const fieldPlaceholders = document.querySelectorAll('.field-positions .placeholder');
+        const subcards = document.querySelectorAll('.sub-card');
 
+        // Handle dragover for fields
         fieldPlaceholders.forEach(placeholder => {
             placeholder.addEventListener('dragover', (e) => {
                 e.preventDefault();
@@ -232,18 +236,47 @@ document.addEventListener('DOMContentLoaded', function () {
                 const playerData = JSON.parse(e.dataTransfer.getData('text/plain'));
                 console.log(playerData);
 
-                // Check if positions match
                 const placeholderPosition = placeholder.querySelector('.add-player-btn').classList[0].toUpperCase();
-                if (playerData.position === placeholderPosition) {
-                    placeholder.innerHTML = ''; // Clear placeholder content
+                if (playerData.position === placeholderPosition && !placeholder.classList.contains('filled')) {
+                    placeholder.innerHTML = ''; 
                     placeholder.classList.add('filled');
 
-                    // Create and append the player card
                     const playerCard = document.createElement('div');
                     playerCard.className = 'player-container';
 
-                    rendrPlayerHtml(playerCard, playerData, 'drag-image')
+                    rendrPlayerHtml(playerCard, playerData, 'drag-image');
                     placeholder.appendChild(playerCard);
+                }
+            });
+        });
+
+        // Handle dragstart for sub cards
+        subcards.forEach(subcard => {
+            subcard.addEventListener('dragstart', (e) => {
+                const playerData = JSON.parse(e.target.dataset.player);  
+                e.dataTransfer.setData('text/plain', JSON.stringify(playerData));
+            });
+
+            subcard.addEventListener('dragover', (e) => {
+                e.preventDefault();
+            });
+
+            subcard.addEventListener('drop', (e) => {
+                e.preventDefault();
+                const playerData = JSON.parse(e.dataTransfer.getData('text/plain'));
+                console.log('Dropped on subcard:', playerData);
+
+               
+                if (!subcard.classList.contains('filled')) {
+                    subcard.classList.add('filled'); 
+                    subcard.innerHTML = ''; 
+
+
+                    const playerCard = document.createElement('div');
+                    playerCard.className = 'player-container';
+
+                    rendrPlayerHtml(playerCard, playerData, 'drag-image');
+                    subcard.appendChild(playerCard);
                 }
             });
         });
