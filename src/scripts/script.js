@@ -3,16 +3,29 @@ import { rendrPlayerHtml } from "./rendrPlayerHtml.js";
 
 document.addEventListener('DOMContentLoaded', function () {
 
-    console.log("--------------------------------------------------");
-    
+    // let data = [];
+
+    async function fetchPlayers() {
+        try {
+            const respo = await fetch("./src/scripts/players.json");
+            data = await respo.json();
+            localStorage.setItem("datastorage", JSON.stringify(data));
+            categorizePlayers();
+        } catch (error) {
+            console.error("Error fetching players:", error);
+        }
+    }
+
     // The image button and form elements
     const addButton = document.querySelector('.add-button');
     const addPlayerForm = document.querySelector('.add-player-form');
     const closeModalBtn = document.querySelector('.close-modal');
     const playerForm = document.getElementById('playerForm');
 
-    // Initially hide the form
+    // hide add the form
     addPlayerForm.style.display = 'none';
+
+    //*************************New Player FORM **************************/
 
     // Event listener for the Add Player image button to show the form
     addButton.addEventListener('click', function () {
@@ -24,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function () {
         addPlayerForm.style.display = 'none';
     });
 
-    // Dynamic stats display based on position
+    // Form stats Based on position GK/players
     document.getElementById('position').addEventListener('change', function () {
         const selectedPosition = this.value;
         const outfieldStats = document.getElementById('outfieldStats');
@@ -42,10 +55,10 @@ document.addEventListener('DOMContentLoaded', function () {
     // Handle form submission
     playerForm.addEventListener('submit', function (event) {
         event.preventDefault();
-        
+
         // Get existing data
         let storedData = JSON.parse(localStorage.getItem('datastorage')) || { players: [] };
-        
+
         // Create new player object with all the form data
         const newPlayer = {
             name: document.getElementById('name').value,
@@ -58,7 +71,7 @@ document.addEventListener('DOMContentLoaded', function () {
             photo: document.getElementById('photo').value,
         };
 
-        // Add position-specific stats
+        // GK-playersspecific stats
         if (newPlayer.position === 'GK') {
             Object.assign(newPlayer, {
                 diving: document.getElementById('diving').value,
@@ -79,52 +92,19 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         }
 
-        // Add to players array
         storedData.players.push(newPlayer);
-        
-        // Save back to localStorage
+
         localStorage.setItem('datastorage', JSON.stringify(storedData));
-        
-        // Reset form and hide it
+
         playerForm.reset();
         addPlayerForm.style.display = 'none';
-        
-        // Re-render the players
-        renderPlayersModal();
+
+        renderfilteredPlayers();
     });
 
-    let data = [];
+    //************************toggle-players-Modal ***************************/
 
-    async function fetchPlayers() {
-        try {
-            const respo = await fetch("./src/scripts/players.json");
-            data = await respo.json();
-            localStorage.setItem("datastorage", JSON.stringify(data));
-            categorizePlayers();
-        } catch (error) {
-            console.error("Error fetching players:", error);
-        }
-    }
-
-
-    function categorizePlayers() {
-        const storedData = JSON.parse(localStorage.getItem("datastorage"));
-        const categorizedPlayers = {
-            ST: [], RW: [], LW: [], CM: [], CB: [], 
-            GK: [], CDM: [], LB: [], RB: []
-        };
-
-        for (let i = 0; i < storedData.players.length; i++) {
-            const player = storedData.players[i];
-            if (categorizedPlayers[player.position]) {
-                categorizedPlayers[player.position].push(player);
-            }
-        }
-
-        localStorage.setItem("categorizedPlayers", JSON.stringify(categorizedPlayers));
-    }
-
-    function displayModal() {
+    function toggleModal() {
 
         console.log("test 1");
 
@@ -143,16 +123,20 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+
+    //************************Filter-position ***************************/
     function filterPlayers(players, position) {
         if (position === 'all') return players;
         return players.filter(player => player.position === position);
     }
 
+
+    //************************Render-players ***************************/
     function renderPlayers(players) {
 
 
         console.log("test 7");
-        
+
         const cardsContainer = document.querySelector('.cards-container');
         cardsContainer.innerHTML = '';
 
@@ -162,9 +146,9 @@ document.addEventListener('DOMContentLoaded', function () {
         players.forEach(player => {
             const renderDiv = document.createElement('div');
             renderDiv.classList.add('placeholder');
-            renderDiv.draggable = true; // Make the card draggable
-        
-            // Add drag start event
+            renderDiv.draggable = true;
+
+            // drag start event
             renderDiv.addEventListener('dragstart', (e) => {
                 e.dataTransfer.setData('text/plain', JSON.stringify(player));
                 // Hide modal but keep the dragged element visible
@@ -180,13 +164,15 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    function renderPlayersModal() {
+
+
+    function renderfilteredPlayers() {
         const storedData = JSON.parse(localStorage.getItem("datastorage"));
         const players = storedData.players;
         const positionFilter = document.getElementById('positionFilter');
 
         console.log("test 6");
-        
+
         renderPlayers(players);
 
         positionFilter.addEventListener('change', () => {
@@ -195,13 +181,13 @@ document.addEventListener('DOMContentLoaded', function () {
             renderPlayers(filteredPlayers);
         });
     }
-
-    function setupPositionButtons() {
+//*****************************Placeholder-Add-button Display modal*******************************/
+    function fieldaddbutton() {
         const positionButtons = document.querySelectorAll('.add-player-btn');
         const modal = document.querySelector('.modal');
 
         console.log("test 4");
-        
+
 
         positionButtons.forEach(button => {
             button.addEventListener('click', function () {
@@ -222,90 +208,42 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     fetchPlayers();
-    // Initialize functionality
-    displayModal();
-    setupPositionButtons();
-    renderPlayersModal();
+    toggleModal();
+    fieldaddbutton();
+    renderfilteredPlayers();
 
+
+
+
+    // **********************************DRAG&drop**************************************
 
 
 
     function setupFieldPlaceholders() {
         const fieldPlaceholders = document.querySelectorAll('.field-positions .placeholder');
-        
+
         fieldPlaceholders.forEach(placeholder => {
             placeholder.addEventListener('dragover', (e) => {
                 e.preventDefault();
             });
-    
+
             placeholder.addEventListener('drop', (e) => {
                 e.preventDefault();
                 const playerData = JSON.parse(e.dataTransfer.getData('text/plain'));
                 console.log(playerData);
-                
+
                 // Check if positions match
                 const placeholderPosition = placeholder.querySelector('.add-player-btn').classList[0].toUpperCase();
                 if (playerData.position === placeholderPosition) {
                     placeholder.innerHTML = ''; // Clear placeholder content
                     placeholder.classList.add('filled');
-                    
+
                     // Create and append the player card
                     const playerCard = document.createElement('div');
                     playerCard.className = 'player-container';
 
-                    if (playerData.position === 'GK') {
-
-                        playerCard.innerHTML = `
-                    <img src="src/assets/images/badge_gold.webp" alt="Empty Card" class="card-image">
-                        <div class="player-photo">
-                            <img class="drag-image" src="${playerData.photo}" alt="${playerData.name}">
-                            <div class="rating">
-                                <h4 class="rating-number">${playerData.rating}</h4>
-                                <p class="position">${playerData.position}</p>
-                            </div>
-                        </div>
-                        <h5 class="player-name">${playerData.name}</h5>
-                        <div class="player-stats">
-                        <div class="player-stats-collumns"><p>Div</p><p>${playerData.diving}</p></div>
-                        <div class="player-stats-collumns"><p>Han</p><p>${playerData.handling}</p></div>
-                        <div class="player-stats-collumns"><p>Kic</p><p>${playerData.kicking}</p></div>
-                        <div class="player-stats-collumns"><p>Ref</p><p>${playerData.reflexes}</p></div>
-                        <div class="player-stats-collumns"><p>Spd</p><p>${playerData.speed}</p></div>
-                        <div class="player-stats-collumns"><p>Pos</p><p>${playerData.positioning}</p></div>
-                    </div>
-                    <div class="icons">
-                        <img src="${playerData.flag}" alt="${playerData.nationality} Flag" class="flag-icon">
-                        <img src="${playerData.logo}" alt="${playerData.club} Logo" class="club-logo">
-                    </div>
-                    `;
-                    }
-                    else
-                    {
-                    playerCard.innerHTML = `
-                    <img src="src/assets/images/badge_gold.webp" alt="Empty Card" class="card-image">
-                        <div class="player-photo">
-                            <img class="drag-image" src="${playerData.photo}" alt="${playerData.name}">
-                            <div class="rating">
-                                <h4 class="rating-number">${playerData.rating}</h4>
-                                <p class="position">${playerData.position}</p>
-                            </div>
-                        </div>
-                        <h5 class="player-name">${playerData.name}</h5>
-                        <div class="player-stats">
-                        <div class="player-stats-collumns"><p>Div</p><p>${playerData.pace}</p></div>
-                        <div class="player-stats-collumns"><p>Han</p><p>${playerData.shooting}</p></div>
-                        <div class="player-stats-collumns"><p>Kic</p><p>${playerData.passing}</p></div>
-                        <div class="player-stats-collumns"><p>Ref</p><p>${playerData.dribbling}</p></div>
-                        <div class="player-stats-collumns"><p>Spd</p><p>${playerData.defending}</p></div>
-                        <div class="player-stats-collumns"><p>Pos</p><p>${playerData.physical}</p></div>
-                    </div>
-                    <div class="icons">
-                        <img src="${playerData.flag}" alt="${playerData.nationality} Flag" class="flag-icon">
-                        <img src="${playerData.logo}" alt="${playerData.club} Logo" class="club-logo">
-                    </div>
-                    `;
-                    }
-    placeholder.appendChild(playerCard);
+                    rendrPlayerHtml(playerCard, playerData, 'drag-image')
+                    placeholder.appendChild(playerCard);
                 }
             });
         });
@@ -314,20 +252,29 @@ document.addEventListener('DOMContentLoaded', function () {
 
     setupFieldPlaceholders();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
 });
 
 
+
+
+
+
+
+
+
+// function categorizePlayers() {
+    //     const storedData = JSON.parse(localStorage.getItem("datastorage"));
+    //     const categorizedPlayers = {
+    //         ST: [], RW: [], LW: [], CM: [], CB: [], 
+    //         GK: [], CDM: [], LB: [], RB: []
+    //     };
+
+    //     for (let i = 0; i < storedData.players.length; i++) {
+    //         const player = storedData.players[i];
+    //         if (categorizedPlayers[player.position]) {
+    //             categorizedPlayers[player.position].push(player);
+    //         }
+    //     }
+
+    //     localStorage.setItem("categorizedPlayers", JSON.stringify(categorizedPlayers));
+    // }

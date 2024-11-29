@@ -1,17 +1,11 @@
-    
-    
-    export function rendrPlayerHtml(renderDiv, player, classname)
-    {
 
 
-        console.log("test 8");
-        
-
+export function rendrPlayerHtml(renderDiv, player, classname) {
     if (player.position === 'GK') {
         renderDiv.innerHTML = `
-    <div class="player-container">
-        <img src="src/assets/images/badge_gold.webp" alt="Empty Card" class="card-image">
-        <div class="player-photo">
+                <div class="player-container">
+                    <img src="src/assets/images/badge_gold.webp" alt="Empty Card" class="card-image">
+                <div class="player-photo">
             <img class="${classname}" src="${player.photo}" alt="${player.name}">
             <div class="rating">
                 <h4 class="rating-number">${player.rating}</h4>
@@ -33,8 +27,8 @@
         </div>
         <button class="${player.position} modal-player-btn">+</button>
     </div>`;
-} else {
-    renderDiv.innerHTML = `
+    } else {
+        renderDiv.innerHTML = `
     <div class="player-container">
         <img src="src/assets/images/badge_gold.webp" alt="Empty Card" class="card-image">
         <div class="player-photo">
@@ -59,5 +53,5 @@
         </div>
         <button class="${player.position} modal-player-btn">+</button>
     </div>`;
-}
     }
+}
