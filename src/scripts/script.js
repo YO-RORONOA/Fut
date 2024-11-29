@@ -1,4 +1,10 @@
+import { rendrPlayerHtml } from "./rendrPlayerHtml.js";
+
+
 document.addEventListener('DOMContentLoaded', function () {
+
+    console.log("--------------------------------------------------");
+    
     // The image button and form elements
     const addButton = document.querySelector('.add-button');
     const addPlayerForm = document.querySelector('.add-player-form');
@@ -100,7 +106,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    fetchPlayers();
 
     function categorizePlayers() {
         const storedData = JSON.parse(localStorage.getItem("datastorage"));
@@ -120,15 +125,20 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function displayModal() {
+
+        console.log("test 1");
+
         const closeModal = document.querySelector('.close-modal');
         const modal = document.querySelector('.modal');
         const displayModal = document.querySelector('.display-button');
 
         closeModal.addEventListener('click', function () {
+            console.log("test 2");
             modal.style.display = 'none';
         });
 
         displayModal.addEventListener('click', function () {
+            console.log("test 3");
             modal.style.display = 'block';
         });
     }
@@ -139,8 +149,15 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function renderPlayers(players) {
+
+
+        console.log("test 7");
+        
         const cardsContainer = document.querySelector('.cards-container');
         cardsContainer.innerHTML = '';
+
+        addPlayerForm.style.display = 'none';
+
 
         players.forEach(player => {
             const renderDiv = document.createElement('div');
@@ -156,59 +173,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 }, 0);
             });
 
-            if (player.position === 'GK') {
-                renderDiv.innerHTML = `
-                <div class="player-container">
-                    <img src="src/assets/images/badge_gold.webp" alt="Empty Card" class="card-image">
-                    <div class="player-photo">
-                        <img src="${player.photo}" alt="${player.name}">
-                        <div class="rating">
-                            <h4 class="rating-number">${player.rating}</h4>
-                            <p class="position">${player.position}</p>
-                        </div>
-                    </div>
-                    <h5 class="player-name">${player.name}</h5>
-                    <div class="player-stats">
-                        <div class="player-stats-collumns"><p>Div</p><p>${player.diving}</p></div>
-                        <div class="player-stats-collumns"><p>Han</p><p>${player.handling}</p></div>
-                        <div class="player-stats-collumns"><p>Kic</p><p>${player.kicking}</p></div>
-                        <div class="player-stats-collumns"><p>Ref</p><p>${player.reflexes}</p></div>
-                        <div class="player-stats-collumns"><p>Spd</p><p>${player.speed}</p></div>
-                        <div class="player-stats-collumns"><p>Pos</p><p>${player.positioning}</p></div>
-                    </div>
-                    <div class="icons">
-                        <img src="${player.flag}" alt="${player.nationality} Flag" class="flag-icon">
-                        <img src="${player.logo}" alt="${player.club} Logo" class="club-logo">
-                    </div>
-                    <button class="${player.position} modal-player-btn">+</button>
-                </div>`;
-            } else {
-                renderDiv.innerHTML = `
-                <div class="player-container">
-                    <img src="src/assets/images/badge_gold.webp" alt="Empty Card" class="card-image">
-                    <div class="player-photo">
-                        <img src="${player.photo}" alt="${player.name}">
-                        <div class="rating">
-                            <h4 class="rating-number">${player.rating}</h4>
-                            <p class="position">${player.position}</p>
-                        </div>
-                    </div>
-                    <h5 class="player-name">${player.name}</h5>
-                    <div class="player-stats">
-                        <div class="player-stats-collumns"><p>Pac</p><p>${player.pace}</p></div>
-                        <div class="player-stats-collumns"><p>Sho</p><p>${player.shooting}</p></div>
-                        <div class="player-stats-collumns"><p>Pas</p><p>${player.passing}</p></div>
-                        <div class="player-stats-collumns"><p>Dri</p><p>${player.dribbling}</p></div>
-                        <div class="player-stats-collumns"><p>Def</p><p>${player.defending}</p></div>
-                        <div class="player-stats-collumns"><p>Phy</p><p>${player.physical}</p></div>
-                    </div>
-                    <div class="icons">
-                        <img src="${player.flag}" alt="${player.nationality} Flag" class="flag-icon">
-                        <img src="${player.logo}" alt="${player.club} Logo" class="club-logo">
-                    </div>
-                    <button class="${player.position} modal-player-btn">+</button>
-                </div>`;
-            }
+
+            rendrPlayerHtml(renderDiv, player, '');
 
             cardsContainer.appendChild(renderDiv);
         });
@@ -219,6 +185,8 @@ document.addEventListener('DOMContentLoaded', function () {
         const players = storedData.players;
         const positionFilter = document.getElementById('positionFilter');
 
+        console.log("test 6");
+        
         renderPlayers(players);
 
         positionFilter.addEventListener('change', () => {
@@ -231,6 +199,9 @@ document.addEventListener('DOMContentLoaded', function () {
     function setupPositionButtons() {
         const positionButtons = document.querySelectorAll('.add-player-btn');
         const modal = document.querySelector('.modal');
+
+        console.log("test 4");
+        
 
         positionButtons.forEach(button => {
             button.addEventListener('click', function () {
@@ -249,6 +220,8 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+
+    fetchPlayers();
     // Initialize functionality
     displayModal();
     setupPositionButtons();
