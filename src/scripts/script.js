@@ -145,6 +145,16 @@ document.addEventListener('DOMContentLoaded', function () {
         players.forEach(player => {
             const renderDiv = document.createElement('div');
             renderDiv.classList.add('placeholder');
+            renderDiv.draggable = true; // Make the card draggable
+        
+            // Add drag start event
+            renderDiv.addEventListener('dragstart', (e) => {
+                e.dataTransfer.setData('text/plain', JSON.stringify(player));
+                // Hide modal but keep the dragged element visible
+                setTimeout(() => {
+                    document.querySelector('.modal').style.display = 'none';
+                }, 0);
+            });
 
             if (player.position === 'GK') {
                 renderDiv.innerHTML = `
@@ -243,4 +253,108 @@ document.addEventListener('DOMContentLoaded', function () {
     displayModal();
     setupPositionButtons();
     renderPlayersModal();
+
+
+
+
+    function setupFieldPlaceholders() {
+        const fieldPlaceholders = document.querySelectorAll('.field-positions .placeholder');
+        
+        fieldPlaceholders.forEach(placeholder => {
+            placeholder.addEventListener('dragover', (e) => {
+                e.preventDefault();
+            });
+    
+            placeholder.addEventListener('drop', (e) => {
+                e.preventDefault();
+                const playerData = JSON.parse(e.dataTransfer.getData('text/plain'));
+                console.log(playerData);
+                
+                // Check if positions match
+                const placeholderPosition = placeholder.querySelector('.add-player-btn').classList[0].toUpperCase();
+                if (playerData.position === placeholderPosition) {
+                    placeholder.innerHTML = ''; // Clear placeholder content
+                    placeholder.classList.add('filled');
+                    
+                    // Create and append the player card
+                    const playerCard = document.createElement('div');
+                    playerCard.className = 'player-container';
+
+                    if (playerData.position === 'GK') {
+
+                        playerCard.innerHTML = `
+                    <img src="src/assets/images/badge_gold.webp" alt="Empty Card" class="card-image">
+                        <div class="player-photo">
+                            <img class="drag-image" src="${playerData.photo}" alt="${playerData.name}">
+                            <div class="rating">
+                                <h4 class="rating-number">${playerData.rating}</h4>
+                                <p class="position">${playerData.position}</p>
+                            </div>
+                        </div>
+                        <h5 class="player-name">${playerData.name}</h5>
+                        <div class="player-stats">
+                        <div class="player-stats-collumns"><p>Div</p><p>${playerData.diving}</p></div>
+                        <div class="player-stats-collumns"><p>Han</p><p>${playerData.handling}</p></div>
+                        <div class="player-stats-collumns"><p>Kic</p><p>${playerData.kicking}</p></div>
+                        <div class="player-stats-collumns"><p>Ref</p><p>${playerData.reflexes}</p></div>
+                        <div class="player-stats-collumns"><p>Spd</p><p>${playerData.speed}</p></div>
+                        <div class="player-stats-collumns"><p>Pos</p><p>${playerData.positioning}</p></div>
+                    </div>
+                    <div class="icons">
+                        <img src="${playerData.flag}" alt="${playerData.nationality} Flag" class="flag-icon">
+                        <img src="${playerData.logo}" alt="${playerData.club} Logo" class="club-logo">
+                    </div>
+                    `;
+                    }
+                    else
+                    {
+                    playerCard.innerHTML = `
+                    <img src="src/assets/images/badge_gold.webp" alt="Empty Card" class="card-image">
+                        <div class="player-photo">
+                            <img class="drag-image" src="${playerData.photo}" alt="${playerData.name}">
+                            <div class="rating">
+                                <h4 class="rating-number">${playerData.rating}</h4>
+                                <p class="position">${playerData.position}</p>
+                            </div>
+                        </div>
+                        <h5 class="player-name">${playerData.name}</h5>
+                        <div class="player-stats">
+                        <div class="player-stats-collumns"><p>Div</p><p>${playerData.pace}</p></div>
+                        <div class="player-stats-collumns"><p>Han</p><p>${playerData.shooting}</p></div>
+                        <div class="player-stats-collumns"><p>Kic</p><p>${playerData.passing}</p></div>
+                        <div class="player-stats-collumns"><p>Ref</p><p>${playerData.dribbling}</p></div>
+                        <div class="player-stats-collumns"><p>Spd</p><p>${playerData.defending}</p></div>
+                        <div class="player-stats-collumns"><p>Pos</p><p>${playerData.physical}</p></div>
+                    </div>
+                    <div class="icons">
+                        <img src="${playerData.flag}" alt="${playerData.nationality} Flag" class="flag-icon">
+                        <img src="${playerData.logo}" alt="${playerData.club} Logo" class="club-logo">
+                    </div>
+                    `;
+                    }
+    placeholder.appendChild(playerCard);
+                }
+            });
+        });
+    }
+
+
+    setupFieldPlaceholders();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
 });
+
+

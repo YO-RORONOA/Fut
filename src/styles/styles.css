@@ -2,6 +2,44 @@
     box-sizing: border-box;
 }
 
+/* Add these CSS rules to your existing stylesheet */
+.placeholder {
+    position: relative;
+    cursor: grab;
+}
+
+.placeholder.filled {
+    cursor: default;
+}
+
+.placeholder .player-container.dropped {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+}
+
+/* Keep dragged element visible during drag */
+[draggable="true"] {
+    user-select: none;
+    -webkit-user-drag: element;
+}
+
+.player-container {
+    transition: transform 0.2s ease;
+}
+
+.player-container:hover {
+    transform: scale(1.05);
+}
+
+
+
+
+
+
 
 body
 {
@@ -445,6 +483,15 @@ body
     left: 14px;
     top: 14px;
   }
+  .drag-image
+  {
+    position: absolute;
+    /* width: 75px;
+    left: 19px;
+    top: 35px; */
+
+  }
+
 
   .rating
   {
