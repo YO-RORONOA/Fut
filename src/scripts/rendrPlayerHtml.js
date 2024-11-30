@@ -4,7 +4,7 @@ export function rendrPlayerHtml(renderDiv, player, classname) {
     if (player.position === 'GK') {
         renderDiv.innerHTML = `
                 <div class="player-container">
-                    <img src="src/assets/images/badge_gold.webp" alt="Empty Card" class="card-image">
+                    <img src="src/assets/images/badge_gold.webp" alt="Empty Card" class="query">
                 <div class="player-photo">
             <img class="${classname}" src="${player.photo}" alt="${player.name}">
             <div class="rating">
@@ -30,7 +30,7 @@ export function rendrPlayerHtml(renderDiv, player, classname) {
     } else {
         renderDiv.innerHTML = `
     <div class="player-container">
-        <img src="src/assets/images/badge_gold.webp" alt="Empty Card" class="card-image">
+        <img src="src/assets/images/badge_gold.webp" alt="Empty Card" class="query">
         <div class="player-photo">
             <img class="${classname}" src="${player.photo}" alt="${player.name}">
             <div class="rating">

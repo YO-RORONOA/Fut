@@ -229,7 +229,7 @@ body
 
 .field-positions {
     height: 90%;
-    /* display: grid; */
+    display: grid;
     /* grid-template-columns: repeat(4, 1fr); */
     /* grid-template-rows: repeat(3, 1fr); */
     gap: 20px;
@@ -284,7 +284,12 @@ body
     width: 70px;
     height: 150px;
 }
-.card-image {
+.card-image{
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+.query {
     width: 100%;
     height: auto;
     object-fit: cover;
@@ -678,6 +683,15 @@ button[type="submit"]:hover {
     font-weight: normal;
 }
 
+@media (min-width: 1500px)
+{
+    .attack {
+    /* height: 110px; */
+    margin-left: 100px;
+    grid-template-columns: repeat(3, 1fr);
+    margin-top: 50px;
+    }
+}
 
 @media (min-width: 300px) and (max-width: 499px) 
     {
@@ -713,9 +727,9 @@ button[type="submit"]:hover {
   {
     padding-top: 15px;
     height: 305px;
-    width: 300px;
+    width: 90%;
     padding-left: 20px;
-    left: 0px;
+    left: 20px;
     top: 12px;
     font: 1px;
     }
@@ -782,46 +796,15 @@ button[type="submit"]:hover {
         padding-right: 30px;
         height: 48px;
     }
-}
-
-@media (min-width: 330px) and (max-width: 1150px)
-{
-    .panel-div
+    .keeper
     {
-    left: 20px;
-
+        /* width: 80%; */
     }
-}
-@media (min-width: 360px) and (max-width: 1150px)
-{
-    .panel-div
-    {
-    left: 30px;
 
-    }
-}
-@media (min-width: 390px) and (max-width: 1150px)
-{
-    .panel-div
+    .field-positions
     {
-    left: 56px;
-
-    }
-}
-@media (min-width: 430px) and (max-width: 1150px)
-{
-    .panel-div
-    {
-    left: 56px;
-
-    }
-}
-@media (min-width: 450px) and (max-width: 1150px)
-{
-    .panel-div
-    {
-    left: 76px;
-
+        margin-top: 30px;
+        display: grid;
     }
 }
 
@@ -832,8 +815,13 @@ button[type="submit"]:hover {
             .placeholder {
                 height: 94px;
             }
+            
             .card-image {
                 width: 65%;
+            }
+            .query
+            {
+                width: 100%;
             }
         .background-imagee {
             flex: 0 0 auto;
@@ -844,7 +832,7 @@ button[type="submit"]:hover {
         .panel-div 
         {
           padding-top: 15px;
-          height: 305px;
+          height: 315px;
           width: 300px;
           padding-left: 20px;
           left: 0px;
@@ -870,7 +858,7 @@ button[type="submit"]:hover {
       
           .add-button {
               height: auto;
-              width: 25px;
+              width: 35px;
           }
           .add-player-btn
           {
@@ -881,8 +869,8 @@ button[type="submit"]:hover {
           }
           .display-button
           {
-              /* width: 39px; */
-              font-size: 10px;
+              width: 90px;
+              font-size: 15px;
           }
       
           .img-div
@@ -926,7 +914,7 @@ button[type="submit"]:hover {
     .main-background
     {
         width: 99vw;
-        height: 160vh;
+        height: 130vh;
     }
 
     .placeholder {
@@ -949,10 +937,10 @@ button[type="submit"]:hover {
   .panel-div 
   {
     padding-top: 15px;
-    height: 360px;
-    width: 350px;
+    height: 370px;
+    width: 80%;
     padding-left: 20px;
-    left: 79px;
+    left: 60px;
     top: 0px;
     font: 1px;
     }
@@ -997,8 +985,15 @@ button[type="submit"]:hover {
     }
     .substitutes-panel
     {
-        margin-top: 115px;
+        margin-top: 40px;
     }
+
+    .field-positions
+    {
+        margin-top: 30px;
+        display: grid;
+    }
+    
 }
 
 @media (min-width: 540px) and (max-width: 1150px)
@@ -1006,7 +1001,14 @@ button[type="submit"]:hover {
     
 } 
 
-
+@media (min-width: 600px) and (max-width: 1150px) 
+{
+.attack {
+    padding-left: 80px;
+    grid-template-columns: repeat(3, 1fr);
+    margin-left: 10%;
+}
+}
 
 
 @media (min-width: 800px) and (max-width: 1150px) 
@@ -1014,7 +1016,7 @@ button[type="submit"]:hover {
     .main-background
     {
         width: 99vw;
-        height: 100vh;
+        height: 130vh;
     }
 
   .main-container
@@ -1034,10 +1036,10 @@ button[type="submit"]:hover {
   {
     padding-top: 15px;
     height: 420px;
-    width: 350px;
+    width: 80%;
     padding-left: 20px;
-    left: 220px;
-    top: -30px;
+    left: 100px;
+    top: 0px;
     font: 1px;
     }
 
@@ -1056,6 +1058,10 @@ button[type="submit"]:hover {
     {
         left: 34px;
     }
+    .substitutes-panel
+    {
+        margin-top: 90px;
+    }
 
 }
 
@@ -1065,7 +1071,7 @@ button[type="submit"]:hover {
     .main-background
     {
         width: 99vw;
-        height: 100vh;
+        height: 130vh;
     }
 
   .main-container
@@ -1085,10 +1091,10 @@ button[type="submit"]:hover {
   {
     padding-top: 15px;
     height: 410px;
-    width: 350px;
+    width: 80%;
     padding-left: 20px;
     left: 100px;
-    top: -30px;
+    top: -0px;
     font: 1px;
     }
 
