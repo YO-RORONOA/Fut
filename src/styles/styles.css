@@ -679,6 +679,432 @@ button[type="submit"]:hover {
 }
 
 
+@media (min-width: 300px) and (max-width: 499px) 
+    {
+        .placeholder {
+            height: 94px;
+        }
+        .card-image {
+            width: 60%;
+        }
+    .background-imagee {
+        flex: 0 0 auto;
+    }
+    .main-background
+    {
+        width: 99vw;
+        height: 100vh;
+    }
+
+  .main-container
+  {
+      flex-direction: column;
+      height: 100vh;
+  }
+  
+  .background-imagee
+  {
+      flex: 3;
+      position: relative;
+  
+  }
+
+  .panel-div 
+  {
+    padding-top: 15px;
+    height: 305px;
+    width: 300px;
+    padding-left: 20px;
+    left: 0px;
+    top: 12px;
+    font: 1px;
+    }
+    .substitutes-panel
+    {
+        margin-top: 0px;
+        padding-top: 90px;
+    }
+
+    .main-panel h2 
+    {
+        font-size: 9px;
+    }
+
+    .main-panel select
+    {
+    
+        height: 3px;
+    }
+
+    .add-button {
+        height: auto;
+        width: 25px;
+    }
+    .add-player-btn
+    {
+        width: 20px;
+        height: auto;
+        font-size: 15px;
+        bottom: 0px;
+    }
+    .display-button
+    {
+        /* width: 39px; */
+        font-size: 10px;
+    }
+
+    .img-div
+    {
+        left: 25px;
+    }
+
+
+    .attack
+    {
+        padding-left: 70px;
+        padding-right: 10px;
+
+        height: 90px;
+        grid-template-columns: repeat(3, 28%);
+    }
+
+    .mid
+    {
+        height: 90px;
+        padding-left: 30px;
+        grid-template-columns: repeat(3, 1fr);
+    }
+    .defence
+    {
+        grid-template-columns: repeat(4, 1fr);
+        margin-left: 5px;
+        padding-left: 0px;
+        padding-right: 30px;
+        height: 48px;
+    }
+}
+
+@media (min-width: 330px) and (max-width: 1150px)
+{
+    .panel-div
+    {
+    left: 20px;
+
+    }
+}
+@media (min-width: 360px) and (max-width: 1150px)
+{
+    .panel-div
+    {
+    left: 30px;
+
+    }
+}
+@media (min-width: 390px) and (max-width: 1150px)
+{
+    .panel-div
+    {
+    left: 56px;
+
+    }
+}
+@media (min-width: 430px) and (max-width: 1150px)
+{
+    .panel-div
+    {
+    left: 56px;
+
+    }
+}
+@media (min-width: 450px) and (max-width: 1150px)
+{
+    .panel-div
+    {
+    left: 76px;
+
+    }
+}
+
+
+
+@media (min-width: 500px) and (max-width: 1150px) 
+    {
+            .placeholder {
+                height: 94px;
+            }
+            .card-image {
+                width: 65%;
+            }
+        .background-imagee {
+            flex: 0 0 auto;
+        }
+
+
+
+        .panel-div 
+        {
+          padding-top: 15px;
+          height: 305px;
+          width: 300px;
+          padding-left: 20px;
+          left: 0px;
+          top: 12px;
+          font: 1px;
+          }
+          .substitutes-panel
+          {
+            margin-top: 90px;
+              padding-top: 90px;
+          }
+      
+          .main-panel h2 
+          {
+              font-size: 9px;
+          }
+      
+          .main-panel select
+          {
+          
+              height: 3px;
+          }
+      
+          .add-button {
+              height: auto;
+              width: 25px;
+          }
+          .add-player-btn
+          {
+              width: 20px;
+              height: auto;
+              font-size: 15px;
+              bottom: 0px;
+          }
+          .display-button
+          {
+              /* width: 39px; */
+              font-size: 10px;
+          }
+      
+          .img-div
+          {
+              left: 25px;
+          }
+      
+      
+          .attack
+          {
+              padding-left: 70px;
+              padding-right: 10px;
+      
+              height: 90px;
+              grid-template-columns: repeat(3, 28%);
+          }
+      
+          .mid
+          {
+              height: 90px;
+              padding-left: 30px;
+              grid-template-columns: repeat(3, 1fr);
+          }
+          .defence
+          {
+              grid-template-columns: repeat(4, 1fr);
+              margin-left: 5px;
+              padding-left: 0px;
+              padding-right: 30px;
+              height: 48px;
+          }
+
+
+
+
+        .main-background
+        {
+            width: 99vw;
+            height: 100vh;
+        }
+    .main-background
+    {
+        width: 99vw;
+        height: 160vh;
+    }
+
+    .placeholder {
+        width:  80px;
+    }
+
+  .main-container
+  {
+      flex-direction: column;
+      height: 100vh;
+  }
+  
+  .background-imagee
+  {
+      flex: 3;
+      position: relative;
+  
+  }
+
+  .panel-div 
+  {
+    padding-top: 15px;
+    height: 360px;
+    width: 350px;
+    padding-left: 20px;
+    left: 79px;
+    top: 0px;
+    font: 1px;
+    }
+
+    .main-panel h2 
+    {
+        font-size: 15px;
+    }
+
+    .main-panel select
+    {
+        /* font-size: 10px; */
+        /* height: 19px; */
+    }
+
+    .img-div
+    {
+        left: 25px;
+    }
+
+
+    .attack
+    {
+        padding-left: 80px;
+        grid-template-columns: repeat(3, 1fr);
+
+        
+    }
+
+    .mid
+    {
+        padding-left: 70px;
+        grid-template-columns: repeat(3, 1fr);
+        padding-left: 90px;
+
+    }
+    .defence
+    {
+        grid-template-columns: repeat(4, 1fr);
+        margin-left: 50px;
+
+    }
+    .substitutes-panel
+    {
+        margin-top: 115px;
+    }
+}
+
+@media (min-width: 540px) and (max-width: 1150px)
+{
+    
+} 
+
+
+
+
+@media (min-width: 800px) and (max-width: 1150px) 
+    {
+    .main-background
+    {
+        width: 99vw;
+        height: 100vh;
+    }
+
+  .main-container
+  {
+      flex-direction: column;
+      height: 100vh;
+  }
+  
+  .background-imagee
+  {
+      flex: 3;
+      position: relative;
+  
+  }
+
+  .panel-div 
+  {
+    padding-top: 15px;
+    height: 420px;
+    width: 350px;
+    padding-left: 20px;
+    left: 220px;
+    top: -30px;
+    font: 1px;
+    }
+
+    .main-panel h2 
+    {
+        font-size: 15px;
+    }
+
+    .main-panel select
+    {
+        /* font-size: 10px; */
+        /* height: 19px; */
+    }
+
+    .img-div
+    {
+        left: 34px;
+    }
+
+}
+
+
+@media (min-width: 1000px) and (max-width: 1150px) 
+    {
+    .main-background
+    {
+        width: 99vw;
+        height: 100vh;
+    }
+
+  .main-container
+  {
+      flex-direction: column;
+      height: 100vh;
+  }
+  
+  .background-imagee
+  {
+      flex: 3;
+      position: relative;
+  
+  }
+
+  .panel-div 
+  {
+    padding-top: 15px;
+    height: 410px;
+    width: 350px;
+    padding-left: 20px;
+    left: 100px;
+    top: -30px;
+    font: 1px;
+    }
+
+    .main-panel h2 
+    {
+        font-size: 15px;
+    }
+
+   
+
+}
+
+
+
+
+
 
 
 
