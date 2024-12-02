@@ -1,5 +1,5 @@
 import { rendrPlayerHtml } from "./rendrPlayerHtml.js";
-import { dragdrop } from "./dragdrop.js";
+import { validation } from "./validation.js";
 
 
 
@@ -103,6 +103,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
         renderfilteredPlayers();
     });
+
+    validation(); //validate form
+
 
     //************************toggle-players-Modal ***************************/
 
