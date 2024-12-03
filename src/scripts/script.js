@@ -215,19 +215,15 @@ document.addEventListener('DOMContentLoaded', function () {
         if (e.target.classList.contains('delete-player-btn')) {
             const modalCard = e.target.closest('.player-container');
     
-            // Check if the delete button is clicked on a modal card
             if (modalCard.closest('.cards-container')) {
                 const playerName = modalCard.querySelector('.player-name').textContent;
     
-                // Remove player from local storage
                 const storedData = JSON.parse(localStorage.getItem('datastorage'));
                 storedData.players = storedData.players.filter(player => player.name !== playerName);
                 localStorage.setItem('datastorage', JSON.stringify(storedData));
     
-                // Remove the card from the modal
                 modalCard.remove();
     
-                // Re-render the modal if necessary
                 renderfilteredPlayers();
             }
         }
@@ -250,19 +246,15 @@ document.addEventListener('DOMContentLoaded', function () {
         if (e.target.classList.contains('delete-player-btn')) {
             const modalCard = e.target.closest('.player-container');
     
-            // Check if the delete button is clicked on a modal card
             if (modalCard.closest('.cards-container')) {
                 const playerName = modalCard.querySelector('.player-name').textContent;
     
-                // Remove player from local storage
                 const storedData = JSON.parse(localStorage.getItem('datastorage'));
                 storedData.players = storedData.players.filter(player => player.name !== playerName);
                 localStorage.setItem('datastorage', JSON.stringify(storedData));
     
-                // Remove the card from the modal
                 modalCard.remove();
     
-                // Re-render the modal if necessary
                 renderfilteredPlayers();
             }
         }
@@ -274,7 +266,6 @@ document.addEventListener('DOMContentLoaded', function () {
         const fieldPlaceholders = document.querySelectorAll('.field-positions .placeholder');
         const subcards = document.querySelectorAll('.sub-card');
     
-        // Handle drag and drop for field placeholders
         fieldPlaceholders.forEach(placeholder => {
             placeholder.addEventListener('dragover', (e) => {
                 e.preventDefault();
@@ -284,51 +275,47 @@ document.addEventListener('DOMContentLoaded', function () {
                 e.preventDefault();
                 const playerData = JSON.parse(e.dataTransfer.getData('text/plain'));
     
-                // Locate the corresponding modal card using a unique identifier (data-player-id)
                 const modalCard = document.querySelector(`[data-player-id="${playerData.name}"]`);
     
-                // Hide the card in the modal if it exists
                 if (modalCard) {
                     modalCard.classList.add('display-none');
                 } else {
                     console.error('Modal card not found for:', playerData.name);
                 }
     
-                // Check position and if the field is empty
                 const placeholderPosition = placeholder.querySelector('.add-player-btn').classList[0].toUpperCase();
                 if (playerData.position === placeholderPosition && !placeholder.classList.contains('filled')) {
-                    // Hide the placeholder
                     placeholder.style.display = 'none';
     
-                    // Create and add the player card to the field
+                    
                     const playerCard = document.createElement('div');
                     playerCard.className = 'player-container';
                     rendrPlayerHtml(playerCard, playerData, 'drag-image');
     
-                    // Add delete button functionality for the field card
+                    
                     const deleteBtn = playerCard.querySelector('.delete-player-btn');
                     deleteBtn.addEventListener('click', () => {
-                        // Remove the card from the field
+                        
                         playerCard.remove();
     
                         // Restore the placeholder
                         placeholder.style.display = '';
                         placeholder.classList.remove('filled');
     
-                        // Make the card reappear in the modal
+                        
                         if (modalCard) {
                             modalCard.classList.remove('display-none');
                         }
                     });
     
-                    // Place the player card after the placeholder
+                    
                     placeholder.after(playerCard);
-                    placeholder.classList.add('filled'); // Mark the field as filled
+                    placeholder.classList.add('filled'); // class to use for dropped cards field as filled
                 }
             });
         });
     
-        // Handle drag and drop for substitute cards
+        // drag and drop for substitute cards
         subcards.forEach(subcard => {
             subcard.addEventListener('dragstart', (e) => {
                 const playerData = JSON.parse(e.target.dataset.player);
