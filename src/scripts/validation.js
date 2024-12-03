@@ -1,5 +1,3 @@
-
-
 export function validation() {
     const nameInput = document.getElementById('name');
     const nationalityInput = document.getElementById('nationality');
@@ -49,38 +47,46 @@ export function validation() {
         const position = positionInput.value;
         let isValid = true;
     
-        if (!validateTextLength(nameInput, 3, 30)) {
+        if (nameInput.value.trim() !== "" && validateTextLength(nameInput, 3, 30) === false) {
             isValid = false;
         }
     
-        if (!validateTextLength(nationalityInput, 3, 30)) {
+        if (nationalityInput.value.trim() !== "" && validateTextLength(nationalityInput, 3, 30) === false) {
             isValid = false;
         }
     
-        if (!validateHttps(clubInput) || !validateHttps(logoInput) || !validateHttps(photoInput)) {
+        if (clubInput.value.trim() !== "" && !validateHttps(clubInput)) {
             isValid = false;
         }
     
-        if (!validateNumberRange(ratingInput, 10, 99)) {
+        if (logoInput.value.trim() !== "" && !validateHttps(logoInput)) {
+            isValid = false;
+        }
+    
+        if (photoInput.value.trim() !== "" && !validateHttps(photoInput)) {
+            isValid = false;
+        }
+    
+        if (ratingInput.value.trim() !== "" && !validateNumberRange(ratingInput, 10, 99)) {
             isValid = false;
         }
     
         if (position === 'GK') {
             const gkStats = ['diving', 'handling', 'kicking', 'reflexes', 'speed', 'positioning'];
-            gkStats.forEach(stat => {
-                const statInput = document.getElementById(stat);
-                if (!validateNumberRange(statInput, 10, 99)) {
+            for (let i = 0; i < gkStats.length; i++) {
+                const statInput = document.getElementById(gkStats[i]);
+                if (statInput.value.trim() !== "" && validateNumberRange(statInput, 10, 99) === false) {
                     isValid = false;
                 }
-            });
+            }
         } else {
             const playerStats = ['pace', 'shooting', 'passing', 'dribbling', 'defending', 'physical'];
-            playerStats.forEach(stat => {
-                const statInput = document.getElementById(stat);
-                if (!validateNumberRange(statInput, 10, 99)) {
+            for (let i = 0; i < playerStats.length; i++) {
+                const statInput = document.getElementById(playerStats[i]);
+                if (statInput.value.trim() !== "" && validateNumberRange(statInput, 10, 99) === false) {
                     isValid = false;
                 }
-            });
+            }
         }
     
         if (isValid) {
@@ -122,5 +128,4 @@ export function validation() {
     logoInput.addEventListener('input', handleInput);
     photoInput.addEventListener('input', handleInput);
     ratingInput.addEventListener('input', handleInput);
-    
 }
