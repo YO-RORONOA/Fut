@@ -9,9 +9,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
     async function fetchPlayers() {
         try {
-            const respo = await fetch("./src/scripts/players.json");
-            data = await respo.json();
-            localStorage.setItem("datastorage", JSON.stringify(data));
+            const storedData = JSON.parse(localStorage.getItem("datastorage"));
+    
+            if (storedData && storedData.players && storedData.players.length > 0) {
+                data = storedData;
+            } else {
+                const respo = await fetch("./src/scripts/players.json");
+                data = await respo.json();
+                localStorage.setItem("datastorage", JSON.stringify(data));
+            }
+    
             categorizePlayers();
         } catch (error) {
             console.error("Error fetching players:", error);
@@ -24,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const closeModalBtn = document.querySelector('.close-modal');
     const playerForm = document.getElementById('playerForm');
 
-    // hide add the form
+
     addPlayerForm.style.display = 'none';
 
     //*************************New Player FORM **************************/
@@ -58,10 +65,9 @@ document.addEventListener('DOMContentLoaded', function () {
     playerForm.addEventListener('submit', function (event) {
         event.preventDefault();
 
-        // Get existing data
         let storedData = JSON.parse(localStorage.getItem('datastorage')) || { players: [] };
 
-        // Create new player object with all the form data
+        // new player object with all the form data
         const newPlayer = {
             name: document.getElementById('name').value,
             position: document.getElementById('position').value,
@@ -73,7 +79,6 @@ document.addEventListener('DOMContentLoaded', function () {
             photo: document.getElementById('photo').value,
         };
 
-        // GK-playersspecific stats
         if (newPlayer.position === 'GK') {
             Object.assign(newPlayer, {
                 diving: document.getElementById('diving').value,
@@ -100,11 +105,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
         playerForm.reset();
         addPlayerForm.style.display = 'none';
+        
 
         renderfilteredPlayers();
     });
 
-    validation(); //validate form
+    validation();
 
 
     //************************toggle-players-Modal ***************************/
@@ -205,6 +211,28 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+    document.addEventListener('click', (e) => {
+        if (e.target.classList.contains('delete-player-btn')) {
+            const modalCard = e.target.closest('.player-container');
+    
+            // Check if the delete button is clicked on a modal card
+            if (modalCard.closest('.cards-container')) {
+                const playerName = modalCard.querySelector('.player-name').textContent;
+    
+                // Remove player from local storage
+                const storedData = JSON.parse(localStorage.getItem('datastorage'));
+                storedData.players = storedData.players.filter(player => player.name !== playerName);
+                localStorage.setItem('datastorage', JSON.stringify(storedData));
+    
+                // Remove the card from the modal
+                modalCard.remove();
+    
+                // Re-render the modal if necessary
+                renderfilteredPlayers();
+            }
+        }
+    });
+
 
     fetchPlayers();
     toggleModal();
@@ -218,72 +246,120 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     
+    document.addEventListener('click', (e) => {
+        if (e.target.classList.contains('delete-player-btn')) {
+            const modalCard = e.target.closest('.player-container');
+    
+            // Check if the delete button is clicked on a modal card
+            if (modalCard.closest('.cards-container')) {
+                const playerName = modalCard.querySelector('.player-name').textContent;
+    
+                // Remove player from local storage
+                const storedData = JSON.parse(localStorage.getItem('datastorage'));
+                storedData.players = storedData.players.filter(player => player.name !== playerName);
+                localStorage.setItem('datastorage', JSON.stringify(storedData));
+    
+                // Remove the card from the modal
+                modalCard.remove();
+    
+                // Re-render the modal if necessary
+                renderfilteredPlayers();
+            }
+        }
+    });
+    
+    // ********************************** DRAG & DROP **************************************
+    
     function setupFieldPlaceholders() {
         const fieldPlaceholders = document.querySelectorAll('.field-positions .placeholder');
         const subcards = document.querySelectorAll('.sub-card');
-
-        // dragover for fields
+    
+        // Handle drag and drop for field placeholders
         fieldPlaceholders.forEach(placeholder => {
             placeholder.addEventListener('dragover', (e) => {
                 e.preventDefault();
             });
-
+    
             placeholder.addEventListener('drop', (e) => {
                 e.preventDefault();
                 const playerData = JSON.parse(e.dataTransfer.getData('text/plain'));
-                const transfer = e.dataTransfer;
-                console.log('transfer', transfer);
-                console.log('data', playerData);
-
-
-
+    
+                // Locate the corresponding modal card using a unique identifier (data-player-id)
+                const modalCard = document.querySelector(`[data-player-id="${playerData.name}"]`);
+    
+                // Hide the card in the modal if it exists
+                if (modalCard) {
+                    modalCard.classList.add('display-none');
+                } else {
+                    console.error('Modal card not found for:', playerData.name);
+                }
+    
+                // Check position and if the field is empty
                 const placeholderPosition = placeholder.querySelector('.add-player-btn').classList[0].toUpperCase();
                 if (playerData.position === placeholderPosition && !placeholder.classList.contains('filled')) {
-                    placeholder.innerHTML = ''; 
-                    placeholder.classList.add('filled');
-
+                    // Hide the placeholder
+                    placeholder.style.display = 'none';
+    
+                    // Create and add the player card to the field
                     const playerCard = document.createElement('div');
                     playerCard.className = 'player-container';
-
                     rendrPlayerHtml(playerCard, playerData, 'drag-image');
-                    placeholder.appendChild(playerCard);
+    
+                    // Add delete button functionality for the field card
+                    const deleteBtn = playerCard.querySelector('.delete-player-btn');
+                    deleteBtn.addEventListener('click', () => {
+                        // Remove the card from the field
+                        playerCard.remove();
+    
+                        // Restore the placeholder
+                        placeholder.style.display = '';
+                        placeholder.classList.remove('filled');
+    
+                        // Make the card reappear in the modal
+                        if (modalCard) {
+                            modalCard.classList.remove('display-none');
+                        }
+                    });
+    
+                    // Place the player card after the placeholder
+                    placeholder.after(playerCard);
+                    placeholder.classList.add('filled'); // Mark the field as filled
                 }
             });
         });
-
-        // dragstart for sub cards
+    
+        // Handle drag and drop for substitute cards
         subcards.forEach(subcard => {
             subcard.addEventListener('dragstart', (e) => {
-                const playerData = JSON.parse(e.target.dataset.player);  
+                const playerData = JSON.parse(e.target.dataset.player);
                 e.dataTransfer.setData('text/plain', JSON.stringify(playerData));
             });
-
+    
             subcard.addEventListener('dragover', (e) => {
                 e.preventDefault();
             });
-
+    
             subcard.addEventListener('drop', (e) => {
                 e.preventDefault();
                 const playerData = JSON.parse(e.dataTransfer.getData('text/plain'));
                 console.log('Dropped on subcard:', playerData);
-
-               
+    
                 if (!subcard.classList.contains('filled')) {
-                    subcard.classList.add('filled'); 
-                    subcard.innerHTML = ''; 
-
-
+                    subcard.classList.add('filled');
+                    subcard.innerHTML = ''; // Clear previous content
+    
                     const playerCard = document.createElement('div');
                     playerCard.className = 'player-container';
-
                     rendrPlayerHtml(playerCard, playerData, 'drag-image');
                     subcard.appendChild(playerCard);
                 }
             });
         });
     }
-
-
+    
     setupFieldPlaceholders();
+    
+    
+    
 
 });
