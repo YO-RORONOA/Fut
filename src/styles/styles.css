@@ -2,6 +2,26 @@
     box-sizing: border-box;
 }
 
+
+.delete-player-btn {
+    position: absolute;
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 8px;
+    height: 13px;
+    font-size: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 20px;
+    right: 3px;
+    z-index: 3;
+
+}
 /* Add these CSS rules to your existing stylesheet */
 .placeholder {
     position: relative;

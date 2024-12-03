@@ -26,6 +26,8 @@ export function rendrPlayerHtml(renderDiv, player, classname) {
             <img src="${player.logo}" alt="${player.club} Logo" class="club-logo">
         </div>
         <button class="${player.position} modal-player-btn">+</button>
+        <button class="delete-player-btn">x</button>
+        
     </div>`;
     } else {
         renderDiv.innerHTML = `
@@ -52,6 +54,8 @@ export function rendrPlayerHtml(renderDiv, player, classname) {
             <img src="${player.logo}" alt="${player.club} Logo" class="club-logo">
         </div>
         <button class="${player.position} modal-player-btn">+</button>
+        <button class="delete-player-btn">x</button>
+
     </div>`;
     }
 }

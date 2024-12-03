@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // Handle form submission
+    // form submission
     playerForm.addEventListener('submit', function (event) {
         event.preventDefault();
 
@@ -111,19 +111,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function toggleModal() {
 
-        console.log("test 1");
-
         const closeModal = document.querySelector('.close-modal');
         const modal = document.querySelector('.modal');
         const displayModal = document.querySelector('.display-button');
 
         closeModal.addEventListener('click', function () {
-            console.log("test 2");
             modal.style.display = 'none';
         });
 
         displayModal.addEventListener('click', function () {
-            console.log("test 3");
             modal.style.display = 'block';
         });
     }
@@ -138,9 +134,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     //************************Render-players ***************************/
     function renderPlayers(players) {
-
-
-        console.log("test 7");
 
         const cardsContainer = document.querySelector('.cards-container');
         cardsContainer.innerHTML = '';
@@ -170,13 +163,13 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
 
+    //************************Render-filtred-players ***************************/
+    
 
     function renderfilteredPlayers() {
         const storedData = JSON.parse(localStorage.getItem("datastorage"));
         const players = storedData.players;
         const positionFilter = document.getElementById('positionFilter');
-
-        console.log("test 6");
 
         renderPlayers(players);
 
@@ -186,6 +179,7 @@ document.addEventListener('DOMContentLoaded', function () {
             renderPlayers(filteredPlayers);
         });
     }
+
 //*****************************Placeholder-Add-button Display modal*******************************/
     function fieldaddbutton() {
         const positionButtons = document.querySelectorAll('.add-player-btn');
@@ -228,7 +222,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const fieldPlaceholders = document.querySelectorAll('.field-positions .placeholder');
         const subcards = document.querySelectorAll('.sub-card');
 
-        // Handle dragover for fields
+        // dragover for fields
         fieldPlaceholders.forEach(placeholder => {
             placeholder.addEventListener('dragover', (e) => {
                 e.preventDefault();
@@ -237,7 +231,11 @@ document.addEventListener('DOMContentLoaded', function () {
             placeholder.addEventListener('drop', (e) => {
                 e.preventDefault();
                 const playerData = JSON.parse(e.dataTransfer.getData('text/plain'));
-                console.log(playerData);
+                const transfer = e.dataTransfer;
+                console.log('transfer', transfer);
+                console.log('data', playerData);
+
+
 
                 const placeholderPosition = placeholder.querySelector('.add-player-btn').classList[0].toUpperCase();
                 if (playerData.position === placeholderPosition && !placeholder.classList.contains('filled')) {
@@ -253,7 +251,7 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         });
 
-        // Handle dragstart for sub cards
+        // dragstart for sub cards
         subcards.forEach(subcard => {
             subcard.addEventListener('dragstart', (e) => {
                 const playerData = JSON.parse(e.target.dataset.player);  
@@ -289,28 +287,3 @@ document.addEventListener('DOMContentLoaded', function () {
     setupFieldPlaceholders();
 
 });
-
-
-
-
-
-
-
-
-
-// function categorizePlayers() {
-    //     const storedData = JSON.parse(localStorage.getItem("datastorage"));
-    //     const categorizedPlayers = {
-    //         ST: [], RW: [], LW: [], CM: [], CB: [], 
-    //         GK: [], CDM: [], LB: [], RB: []
-    //     };
-
-    //     for (let i = 0; i < storedData.players.length; i++) {
-    //         const player = storedData.players[i];
-    //         if (categorizedPlayers[player.position]) {
-    //             categorizedPlayers[player.position].push(player);
-    //         }
-    //     }
-
-    //     localStorage.setItem("categorizedPlayers", JSON.stringify(categorizedPlayers));
-    // }
