@@ -4,6 +4,19 @@
 .display-none {
     display: none !important;
 }
+button[type="close-form"] {
+    width: 25px;
+    position: absolute;
+    top: 15px;
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    height: 23px;
+    font-size: 10px;
+    font-weight: bold;
+    cursor: pointer;
+}
 
 .delete-player-btn {
     position: absolute;

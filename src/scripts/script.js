@@ -27,6 +27,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // The image button and form elements
     const addButton = document.querySelector('.add-button');
+    const closeform = document.querySelector('button[type="close-form"]')
     const addPlayerForm = document.querySelector('.add-player-form');
     const closeModalBtn = document.querySelector('.close-modal');
     const playerForm = document.getElementById('playerForm');
@@ -39,6 +40,10 @@ document.addEventListener('DOMContentLoaded', function () {
     // Event listener for the Add Player image button to show the form
     addButton.addEventListener('click', function () {
         addPlayerForm.style.display = 'block';
+    });
+
+    closeform.addEventListener('click', function () {
+        addPlayerForm.style.display = 'none';
     });
 
     // Event listener for Close button in the form to hide the form
